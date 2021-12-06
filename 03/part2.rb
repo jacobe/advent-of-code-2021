@@ -18,4 +18,4 @@ end
 
 puts "Oxygen: #{oxygen} #{oxygen.join().to_i(2)}"
 puts "CO2: #{co2} #{co2.join.to_i(2)}"
-puts "Life support rating: #{oxygen.join().to_i(2) * co2.join.t 
+puts "Life support rating: #{oxygen.join().to_i(2) * co2.join.to_i(2)}"
