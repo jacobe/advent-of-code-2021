@@ -1,4 +1,6 @@
 class Cave
+  attr_reader :label, :is_small, :neighbours
+
   def initialize(label)
     @label = label
     @is_small = label.chars.all? { |c| 'a' <= c && c <= 'z' }
@@ -7,22 +9,6 @@ class Cave
 
   def add_path(cave)
     @neighbours << cave
-  end
-
-  def label
-    @label
-  end
-
-  def neighbours
-    @neighbours
-  end
-
-  def is_small
-    @is_small
-  end
-
-  def to_s
-    @label
   end
 
   def inspect
