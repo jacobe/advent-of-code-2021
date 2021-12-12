@@ -30,42 +30,29 @@ class Cave
   end
 end
 
-CAVES = {}
-PATHS = [] 
-
 def part1(path, cave)
-  path << cave
-  if cave.label == 'end'
-    PATHS << path
-  end
-
-  cave.neighbours.each do |neighbour|
-    if neighbour.is_small && path.include?(neighbour)
-      nil
-    else
-      part1(path.clone, neighbour)
+  return 1 if cave.label == 'end'
+  cave.neighbours.map do |neighbour|
+    if !(neighbour.is_small && path.include?(neighbour))
+      part1([*path, cave], neighbour)
     end
-  end
+  end.compact.sum
 end
 
 def part2(path, cave)
-  path << cave
-  if cave.label == 'end'
-    PATHS << path
-    return path
-  end
-
-  cave.neighbours.each do |neighbour|
-    if neighbour.is_small &&
+  return 1 if cave.label == 'end'
+  cave.neighbours.map do |neighbour|
+    if !(neighbour.is_small &&
       path.include?(neighbour) &&
-      path.filter(&:is_small).uniq.any? { |n| path.count(n) >= 2 }
-      nil
-    else
-      part2(path.clone, neighbour)
+      path.filter(&:is_small).uniq.any? { |n| path.count(n) >= 2 })
+      part2([*path, cave], neighbour)
     end
-  end
+  end.compact.sum
 end
 
+CAVES = {}
+
+# Read all the caves and add paths between them
 File.readlines('input').map do |line|
   from, to = line.strip.split('-')
 
@@ -83,5 +70,5 @@ File.readlines('input').map do |line|
   to.add_path(from) unless from.label == 'start' || to.label == 'end'
 end
 
-part1([], CAVES['start'])
-puts "#{PATHS.length}"
+# Calculate the number of valid paths
+puts part2([], CAVES['start'])
