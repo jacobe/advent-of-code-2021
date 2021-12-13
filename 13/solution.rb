@@ -1,22 +1,19 @@
-def part1(dots, instructions)
-  for inst in instructions
-    axis = inst[1].to_i
-    dim = inst[0] == 'y' ? 1 : 0
-    dots.filter { |d| d[dim] > axis }.each do |d|
-      d[dim] -= 2 * (d[dim] - axis)
-    end
-    break
+def fold(dots, instruction)
+  axis = instruction[1].to_i
+  dim = instruction[0] == 'y' ? 1 : 0
+  dots.filter { |d| d[dim] > axis }.each do |d|
+    d[dim] -= 2 * (d[dim] - axis)
   end
+end
+
+def part1(dots, instructions)
+  fold(dots, instructions[0])
   dots.uniq.length
 end
 
 def part2(dots, instructions)
-  for inst in instructions
-    axis = inst[1].to_i
-    dim = inst[0] == 'y' ? 1 : 0
-    dots.filter { |d| d[dim] > axis }.each do |d|
-      d[dim] -= 2 * (d[dim] - axis)
-    end
+  instructions.each do |inst|
+    fold(dots, inst)
   end
 
   max_x = dots.map { |d| d[0] }.max
