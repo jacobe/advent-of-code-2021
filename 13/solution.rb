@@ -22,7 +22,7 @@ def part2(dots, instructions)
   max_x = dots.map { |d| d[0] }.max
   max_y = dots.map { |d| d[1] }.max
   map = []
-  for y in 0..max_y
+  (0..max_y).each do
     line = ['.'] * max_x * '' # build a string containing max_x dots
     map << line
   end
